@@ -24,13 +24,13 @@ class App extends Component {
 
   handleSearch = (event) => {
     const newData = data.filter(employees => {
-      if (this.state.searchOption === "first_name") {
+      if (this.state.searchOption == "first_name") {
         return employees.first_name.toLowerCase().match(event.target.value)
-      } else if (this.state.searchOption === "last_name") {
+      } else if (this.state.searchOption == "last_name") {
         return employees.last_name.toLowerCase().match(event.target.value)
-      } else if (this.state.searchOption === "email") {
+      } else if (this.state.searchOption == "email") {
         return employees.email.toLowerCase().match(event.target.value)
-      } else if (this.state.searchOption === "role") {
+      } else if (this.state.searchOption == "role") {
         return employees.role.toLowerCase().match(event.target.value)
       }
     });
