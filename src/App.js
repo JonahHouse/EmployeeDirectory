@@ -3,6 +3,12 @@ import './App.css';
 import Search from './Components/Search'
 import TableRow from './Components/TableRow'
 import data from './Components/db/employee.json'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 class App extends Component {
 
@@ -36,33 +42,38 @@ class App extends Component {
 
 
   render() {
+
     return (
       <>
-        <Search
-          handleSearchOption={this.handleSearchOption}
-          handleSearch={this.handleSearch} />
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.state.searchResults.map((row, index) =>
-                <TableRow
-                  firstName={row.first_name}
-                  lastName={row.last_name}
-                  email={row.email}
-                  role={row.role}
-                  key={index} />
-              )
-            }
-          </tbody>
-        </table>
+        <Router>
+          <Route path="/">
+            <Search
+              handleSearchOption={this.handleSearchOption}
+              handleSearch={this.handleSearch} />
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  this.state.searchResults.map((row, index) =>
+                    <TableRow
+                      firstName={row.first_name}
+                      lastName={row.last_name}
+                      email={row.email}
+                      role={row.role}
+                      key={index} />
+                  )
+                }
+              </tbody>
+            </table>
+          </Route>
+        </Router>
       </>
     );
   }
