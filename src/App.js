@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import Search from "./Components/Search";
 import TableRow from "./Components/TableRow";
-import data from "./Components/db/employee.json";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import employeeData from "./Components/db/employee.json";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -35,18 +35,18 @@ class App extends Component {
   };
 
   handleSearch = (event) => {
-    const newData = data.filter((employees) => {
-      if (this.state.searchOption == "first_name") {
+    const newData = employeeData.filter((employees) => {
+      if (this.state.searchOption === "first_name") {
         return employees.first_name.toLowerCase().match(this.state.searchQuery);
-      } else if (this.state.searchOption == "last_name") {
+      } else if (this.state.searchOption === "last_name") {
         return employees.last_name.toLowerCase().match(this.state.searchQuery);
-      } else if (this.state.searchOption == "email") {
+      } else if (this.state.searchOption === "email") {
         return employees.email.toLowerCase().match(this.state.searchQuery);
-      } else if (this.state.searchOption == "role") {
+      } else if (this.state.searchOption === "role") {
         return employees.role.toLowerCase().match(this.state.searchQuery);
       }
     });
-    if (this.state.sortOption == "first_name") {
+    if (this.state.sortOption === "first_name") {
       newData.sort((a, b) => {
         let nameA = a.first_name.toUpperCase();
         let nameB = b.first_name.toUpperCase();
@@ -57,7 +57,7 @@ class App extends Component {
           return 1;
         }
       });
-    } else if (this.state.sortOption == "last_name") {
+    } else if (this.state.sortOption === "last_name") {
       newData.sort((a, b) => {
         let nameA = a.last_name.toUpperCase();
         let nameB = b.last_name.toUpperCase();
@@ -79,12 +79,14 @@ class App extends Component {
       <>
         <Router>
           <Route path="/">
+            <h1 className="text-center m-5">Employee Directory</h1>
             <Search
               handleSearchChange={this.handleSearchChange}
               handleSearchOption={this.handleSearchOption}
               handleSortOption={this.handleSortOption}
             />
-            <table className="table">
+
+            <table className="table w-50" style={{ margin: "0 auto" }}>
               <thead>
                 <tr>
                   <th scope="col">First</th>
@@ -94,15 +96,26 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.searchResults.map((row, index) => (
-                  <TableRow
-                    firstName={row.first_name}
-                    lastName={row.last_name}
-                    email={row.email}
-                    role={row.role}
-                    key={index}
-                  />
-                ))}
+                {this.state.searchResults.length === 0
+                  ? employeeData.map((row, index) => (
+                    <TableRow
+                      firstName={row.first_name}
+                      lastName={row.last_name}
+                      email={row.email}
+                      role={row.role}
+                      key={index}
+                    />
+                  ))
+                  : this.state.searchResults.map((row, index) => (
+                    <TableRow
+                      firstName={row.first_name}
+                      lastName={row.last_name}
+                      email={row.email}
+                      role={row.role}
+                      key={index}
+                    />
+                  ))
+                }
               </tbody>
             </table>
           </Route>
