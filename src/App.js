@@ -96,7 +96,7 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.searchResults.length === 0
+                {this.state.searchResults.length === 0 && this.state.searchQuery === ""
                   ? employeeData.map((row, index) => (
                     <TableRow
                       firstName={row.first_name}
@@ -118,6 +118,11 @@ class App extends Component {
                 }
               </tbody>
             </table>
+            {
+              this.state.searchResults.length === 0 && this.state.searchQuery !== "" ?
+                <h3 className="text-center m-3">No employees found</h3> :
+                null
+            }
           </Route>
         </Router>
       </>
