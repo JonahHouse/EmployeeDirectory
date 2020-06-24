@@ -81,7 +81,7 @@ class App extends Component {
           <Route path="/">
             <Search
               handleSearchChange={this.handleSearchChange}
-              handleSearch={this.handleSearch}
+              handleSearchOption={this.handleSearchOption}
               handleSortOption={this.handleSortOption}
             />
             <table className="table">
